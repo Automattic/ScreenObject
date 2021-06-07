@@ -95,7 +95,8 @@
 				3FF14327266E2BB500138163 /* ScreenObject.h */,
 				3FF14328266E2BB500138163 /* Info.plist */,
 			);
-			path = ScreenObject;
+			name = ScreenObject;
+			path = Sources/ScreenObject;
 			sourceTree = "<group>";
 		};
 		3FF14333266E2C7200138163 /* TestApp */ = {
@@ -109,7 +110,8 @@
 				3FF14342266E2C7400138163 /* Info.plist */,
 				3FF1433C266E2C7400138163 /* Preview Content */,
 			);
-			path = TestApp;
+			name = TestApp;
+			path = Tests/TestApp;
 			sourceTree = "<group>";
 		};
 		3FF1433C266E2C7400138163 /* Preview Content */ = {
@@ -126,7 +128,8 @@
 				3FF14356266E2C7500138163 /* TestAppUITests.swift */,
 				3FF14358266E2C7500138163 /* Info.plist */,
 			);
-			path = TestAppUITests;
+			name = TestAppUITests;
+			path = Tests/TestAppUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -520,7 +523,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"TestApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Tests/TestApp/Preview Content\"";
 				DEVELOPMENT_TEAM = PZYM8XX95Q;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -539,7 +542,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = TestApp/Info.plist;
+				INFOPLIST_FILE = Tests/TestApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -596,7 +599,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_ASSET_PATHS = "\"TestApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Tests/TestApp/Preview Content\"";
 				DEVELOPMENT_TEAM = PZYM8XX95Q;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_PREVIEWS = YES;
@@ -609,7 +612,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = TestApp/Info.plist;
+				INFOPLIST_FILE = Tests/TestApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -682,7 +685,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = TestAppUITests/Info.plist;
+				INFOPLIST_FILE = Tests/TestAppUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -751,7 +754,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = TestAppUITests/Info.plist;
+				INFOPLIST_FILE = Tests/TestAppUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
