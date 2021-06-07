@@ -1,3 +1,4 @@
+import ScreenObject
 import XCTest
 
 class TestAppUITests: XCTestCase {
@@ -11,5 +12,6 @@ class TestAppUITests: XCTestCase {
         app.launch()
 
         XCTAssertTrue(app.staticTexts["Hello, world!"].exists)
+        XCTAssertEqual(ScreenObject().testProp, "Hey there!")
     }
 }

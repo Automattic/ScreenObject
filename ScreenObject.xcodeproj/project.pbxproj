@@ -15,6 +15,8 @@
 		3FF1433E266E2C7400138163 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FF1433D266E2C7400138163 /* Preview Assets.xcassets */; };
 		3FF14341266E2C7400138163 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FF1433F266E2C7400138163 /* LaunchScreen.storyboard */; };
 		3FF14357266E2C7500138163 /* TestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF14356266E2C7500138163 /* TestAppUITests.swift */; };
+		3FF1437D266E345A00138163 /* ScreenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF1437C266E345A00138163 /* ScreenObject.swift */; };
+		3FF14385266E34A700138163 /* ScreenObject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF14324266E2BB500138163 /* ScreenObject.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,7 @@
 		3FF14352266E2C7500138163 /* TestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FF14356266E2C7500138163 /* TestAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppUITests.swift; sourceTree = "<group>"; };
 		3FF14358266E2C7500138163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FF1437C266E345A00138163 /* ScreenObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FF14385266E34A700138163 /* ScreenObject.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +80,7 @@
 				3FF14333266E2C7200138163 /* TestApp */,
 				3FF14355266E2C7500138163 /* TestAppUITests */,
 				3FF14325266E2BB500138163 /* Products */,
+				3FF14384266E34A700138163 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,8 +97,9 @@
 		3FF14326266E2BB500138163 /* ScreenObject */ = {
 			isa = PBXGroup;
 			children = (
-				3FF14327266E2BB500138163 /* ScreenObject.h */,
 				3FF14328266E2BB500138163 /* Info.plist */,
+				3FF14327266E2BB500138163 /* ScreenObject.h */,
+				3FF1437C266E345A00138163 /* ScreenObject.swift */,
 			);
 			name = ScreenObject;
 			path = Sources/ScreenObject;
@@ -130,6 +136,13 @@
 			);
 			name = TestAppUITests;
 			path = Tests/TestAppUITests;
+			sourceTree = "<group>";
+		};
+		3FF14384266E34A700138163 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +223,7 @@
 				TargetAttributes = {
 					3FF14323266E2BB500138163 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 					3FF14331266E2C7200138163 = {
 						CreatedOnToolsVersion = 12.4;
@@ -272,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FF1437D266E345A00138163 /* ScreenObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
