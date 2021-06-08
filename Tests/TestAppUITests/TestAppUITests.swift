@@ -11,7 +11,14 @@ class TestAppUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        XCTAssertTrue(app.staticTexts["Hello, world!"].exists)
-        XCTAssertEqual(ScreenObject().testProp, "Hey there!")
+        let screen = try HelloWorldScreen()
+        XCTAssertTrue(screen.isLoaded)
+    }
+}
+
+final class HelloWorldScreen: ScreenObject {
+
+    init(app: XCUIApplication = XCUIApplication()) throws {
+        try super.init(element: app.staticTexts["Hello, world!"])
     }
 }
