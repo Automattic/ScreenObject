@@ -17,6 +17,7 @@
 		3FF14357266E2C7500138163 /* TestAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF14356266E2C7500138163 /* TestAppUITests.swift */; };
 		3FF1437D266E345A00138163 /* ScreenObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF1437C266E345A00138163 /* ScreenObject.swift */; };
 		3FF14385266E34A700138163 /* ScreenObject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF14324266E2BB500138163 /* ScreenObject.framework */; };
+		3FF14390266E374100138163 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF1438F266E374100138163 /* XCTest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		3FF14356266E2C7500138163 /* TestAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAppUITests.swift; sourceTree = "<group>"; };
 		3FF14358266E2C7500138163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3FF1437C266E345A00138163 /* ScreenObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenObject.swift; sourceTree = "<group>"; };
+		3FF1438F266E374100138163 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FF14390266E374100138163 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +144,7 @@
 		3FF14384266E34A700138163 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3FF1438F266E374100138163 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
