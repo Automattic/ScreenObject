@@ -10,7 +10,7 @@ let package = Package(
     ],
     dependencies: [],
     targets: [
-        .target(name: "ScreenObject", dependencies: []),
+        .target(name: "ScreenObject", exclude: ["Info.plist"]),
     ],
     swiftLanguageVersions: [.v5]
 )
