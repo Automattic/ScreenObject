@@ -14,26 +14,11 @@ class TestAppUITests: XCTestCase {
         let screen = try HelloWorldScreen()
         XCTAssertTrue(screen.isLoaded)
     }
-
-    func testExample_OldAPI() throws {
-        let app = XCUIApplication()
-        app.launch()
-
-        let screen = try HelloWorldScreen_OldAPI()
-        XCTAssertTrue(screen.isLoaded)
-    }
 }
 
 final class HelloWorldScreen: ScreenObject {
 
     init(app: XCUIApplication = XCUIApplication()) throws {
         try super.init(probeElementGetter: { $0.staticTexts["Hello, world!"] })
-    }
-}
-
-final class HelloWorldScreen_OldAPI: ScreenObject {
-
-    init(app: XCUIApplication = XCUIApplication()) throws {
-        try super.init(element: app.staticTexts["Hello, world!"])
     }
 }

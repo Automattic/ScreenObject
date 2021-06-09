@@ -11,6 +11,7 @@ open class ScreenObject {
     public var expectedElement: XCUIElement { probeElementGetter(app) }
     private let waitTimeout: TimeInterval
 
+    @available(*, deprecated, message: "Use init(probeElementGetter:, app:) instead")
     public init(element: XCUIElement, app: XCUIApplication = XCUIApplication(), waitTimeout: TimeInterval = 20) throws {
         self.app = app
         probeElementGetter = { _ in element }
