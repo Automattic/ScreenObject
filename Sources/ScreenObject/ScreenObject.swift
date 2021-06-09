@@ -10,8 +10,12 @@ open class ScreenObject {
     /// initialization time.
     public let app: XCUIApplication
 
-    /// The `XCUIElement` used to evaluate whether the screen is visible at runtime.
+    /// The `XCUIElement` used to evaluate whether the screen is loaded at runtime.
     public var expectedElement: XCUIElement { expectedElementGetter(app) }
+
+    /// Whether the screen is loaded at runtime. This is evaluated using inspecting the
+    /// `expectedElement` property.
+    public var isLoaded: Bool { expectedElement.exists }
 
     private let expectedElementGetter: (XCUIApplication) -> XCUIElement
     private let waitTimeout: TimeInterval
@@ -50,6 +54,4 @@ open class ScreenObject {
 
         return result == .completed
     }
-
-    public var isLoaded: Bool { expectedElement.exists }
 }
