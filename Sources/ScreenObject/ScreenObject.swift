@@ -10,8 +10,10 @@ open class ScreenObject {
     /// initialization time.
     public let app: XCUIApplication
 
-    private let expectedElementGetter: (XCUIApplication) -> XCUIElement
+    /// The `XCUIElement` used to evaluate whether the screen is visible at runtime.
     public var expectedElement: XCUIElement { expectedElementGetter(app) }
+
+    private let expectedElementGetter: (XCUIApplication) -> XCUIElement
     private let waitTimeout: TimeInterval
 
     @available(*, deprecated, message: "Use init(expectedElementGetter:, app:) instead")
