@@ -6,24 +6,25 @@ open class ScreenObject {
         case unableToLocateElement
     }
 
-    let app: XCUIApplication
-    let expectedElement: XCUIElement
-    let waitTimeout: TimeInterval
+    private let app: XCUIApplication
+    private let probeElementGetter: (XCUIApplication) -> XCUIElement
+    public var expectedElement: XCUIElement { probeElementGetter(app) }
+    private let waitTimeout: TimeInterval
 
     public init(element: XCUIElement, app: XCUIApplication = XCUIApplication(), waitTimeout: TimeInterval = 20) throws {
         self.app = app
-        expectedElement = element
+        probeElementGetter = { _ in element }
         self.waitTimeout = 20
         try waitForScreen()
     }
 
     public init(
-        probeElementGetter: (XCUIApplication) -> XCUIElement,
+        probeElementGetter: @escaping (XCUIApplication) -> XCUIElement,
         app: XCUIApplication = XCUIApplication(),
         waitTimeout: TimeInterval = 20
     ) throws {
         self.app = app
-        expectedElement = probeElementGetter(app)
+        self.probeElementGetter = probeElementGetter
         self.waitTimeout = 20
         try waitForScreen()
     }
