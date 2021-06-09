@@ -1,5 +1,9 @@
 import XCTest
 
+// Defined as `open` so consumers can create subclasses of this. Not that there's anything that
+// would stop a consumer from instantiating a `ScreenObject` directly, but that wouldn't be very
+// useful. The screen object pattern expect the object to expose APIs to interact with the screen
+// and those are obviously specific to each screen, hence should be added by each subclass.
 open class ScreenObject {
 
     /// The `XCUIApplication` instance this screen is part of. This is the value passed at
