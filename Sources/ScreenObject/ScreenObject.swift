@@ -2,10 +2,6 @@ import XCTest
 
 open class ScreenObject {
 
-    enum UITestError: Error {
-        case unableToLocateElement
-    }
-
     /// The `XCUIApplication` instance this screen is part of. This is the value passed at
     /// initialization time.
     public let app: XCUIApplication
