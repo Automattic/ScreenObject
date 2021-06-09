@@ -17,6 +17,17 @@ open class ScreenObject {
         try waitForScreen()
     }
 
+    public init(
+        probeElementGetter: (XCUIApplication) -> XCUIElement,
+        app: XCUIApplication = XCUIApplication(),
+        waitTimeout: TimeInterval = 20
+    ) throws {
+        self.app = app
+        expectedElement = probeElementGetter(app)
+        self.waitTimeout = 20
+        try waitForScreen()
+    }
+
     @discardableResult
     func waitForScreen() throws -> Self {
         XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
