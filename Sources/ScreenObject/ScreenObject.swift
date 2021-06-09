@@ -7,25 +7,25 @@ open class ScreenObject {
     }
 
     private let app: XCUIApplication
-    private let probeElementGetter: (XCUIApplication) -> XCUIElement
-    public var expectedElement: XCUIElement { probeElementGetter(app) }
+    private let expectedElementGetter: (XCUIApplication) -> XCUIElement
+    public var expectedElement: XCUIElement { expectedElementGetter(app) }
     private let waitTimeout: TimeInterval
 
-    @available(*, deprecated, message: "Use init(probeElementGetter:, app:) instead")
+    @available(*, deprecated, message: "Use init(expectedElementGetter:, app:) instead")
     public init(element: XCUIElement, app: XCUIApplication = XCUIApplication(), waitTimeout: TimeInterval = 20) throws {
         self.app = app
-        probeElementGetter = { _ in element }
+        expectedElementGetter = { _ in element }
         self.waitTimeout = 20
         try waitForScreen()
     }
 
     public init(
-        probeElementGetter: @escaping (XCUIApplication) -> XCUIElement,
+        expectedElementGetter: @escaping (XCUIApplication) -> XCUIElement,
         app: XCUIApplication = XCUIApplication(),
         waitTimeout: TimeInterval = 20
     ) throws {
         self.app = app
-        self.probeElementGetter = probeElementGetter
+        self.expectedElementGetter = expectedElementGetter
         self.waitTimeout = 20
         try waitForScreen()
     }

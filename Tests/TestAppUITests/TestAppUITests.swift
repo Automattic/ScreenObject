@@ -19,6 +19,6 @@ class TestAppUITests: XCTestCase {
 final class HelloWorldScreen: ScreenObject {
 
     init(app: XCUIApplication = XCUIApplication()) throws {
-        try super.init(probeElementGetter: { $0.staticTexts["Hello, world!"] })
+        try super.init(expectedElementGetter: { $0.staticTexts["Hello, world!"] })
     }
 }
