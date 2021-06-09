@@ -6,7 +6,10 @@ open class ScreenObject {
         case unableToLocateElement
     }
 
-    private let app: XCUIApplication
+    /// The `XCUIApplication` instance this screen is part of. This is the value passed at
+    /// initialization time.
+    public let app: XCUIApplication
+
     private let expectedElementGetter: (XCUIApplication) -> XCUIElement
     public var expectedElement: XCUIElement { expectedElementGetter(app) }
     private let waitTimeout: TimeInterval
