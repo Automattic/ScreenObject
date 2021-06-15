@@ -11,20 +11,19 @@ open class ScreenObject {
     public let app: XCUIApplication
 
     /// The `XCUIElement` used to evaluate whether the screen is loaded at runtime.
-    public var expectedElement: XCUIElement { expectedElementGetter(app) }
+    public let expectedElement: XCUIElement
 
-    /// Whether the screen is loaded at runtime. This is evaluated using inspecting the
-    /// `expectedElement` property.
+    /// Whether the screen is loaded at runtime. Evaluated inspecting the `expectedElement`
+    /// property.
     public var isLoaded: Bool { expectedElement.exists }
 
-    private let expectedElementGetter: (XCUIApplication) -> XCUIElement
     private let waitTimeout: TimeInterval
 
     @available(*, deprecated, message: "Use init(expectedElementGetter:, app:) instead")
     public init(element: XCUIElement, app: XCUIApplication = XCUIApplication(), waitTimeout: TimeInterval = 20) throws {
         self.app = app
-        expectedElementGetter = { _ in element }
-        self.waitTimeout = 20
+        expectedElement = element
+        self.waitTimeout = waitTimeout
         try waitForScreen()
     }
 
@@ -34,8 +33,8 @@ open class ScreenObject {
         waitTimeout: TimeInterval = 20
     ) throws {
         self.app = app
-        self.expectedElementGetter = expectedElementGetter
-        self.waitTimeout = 20
+        expectedElement = expectedElementGetter(app)
+        self.waitTimeout = waitTimeout
         try waitForScreen()
     }
 
