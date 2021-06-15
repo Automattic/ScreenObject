@@ -19,14 +19,6 @@ open class ScreenObject {
 
     private let waitTimeout: TimeInterval
 
-    @available(*, deprecated, message: "Use init(expectedElementGetter:, app:) instead")
-    public init(element: XCUIElement, app: XCUIApplication = XCUIApplication(), waitTimeout: TimeInterval = 20) throws {
-        self.app = app
-        expectedElement = element
-        self.waitTimeout = waitTimeout
-        try waitForScreen()
-    }
-
     public init(
         expectedElementGetter: @escaping (XCUIApplication) -> XCUIElement,
         app: XCUIApplication = XCUIApplication(),
