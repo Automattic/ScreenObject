@@ -10,8 +10,10 @@ open class ScreenObject {
     /// initialization time.
     public let app: XCUIApplication
 
+    private let expectedElementGetter: (XCUIApplication) -> XCUIElement
+
     /// The `XCUIElement` used to evaluate whether the screen is loaded at runtime.
-    public let expectedElement: XCUIElement
+    public var expectedElement: XCUIElement { expectedElementGetter(app) }
 
     /// Whether the screen is loaded at runtime. Evaluated inspecting the `expectedElement`
     /// property.
@@ -25,7 +27,7 @@ open class ScreenObject {
         waitTimeout: TimeInterval = 20
     ) throws {
         self.app = app
-        expectedElement = expectedElementGetter(app)
+        self.expectedElementGetter = expectedElementGetter
         self.waitTimeout = waitTimeout
         try waitForScreen()
     }
