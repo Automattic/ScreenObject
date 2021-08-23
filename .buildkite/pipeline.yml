@@ -13,3 +13,13 @@ steps:
     env: *common_env
     agents:
       queue: 'mac'
+
+  - label: "🧪 Build and Test (iPad Pro (12.9-inch) (5th generation) Simulator)"
+    command: |
+      xcodebuild clean test \
+        -project 'ScreenObject.xcodeproj' \
+        -scheme 'ScreenObject' \
+        -destination 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (5th generation),OS=14.5'
+    env: *common_env
+    agents:
+      queue: 'mac'
