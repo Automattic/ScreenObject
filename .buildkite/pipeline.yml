@@ -5,21 +5,13 @@ common_params:
 
 steps:
   - label: "🧪 Build and Test (iPhone 12 Simulator)"
-    command: |
-      xcodebuild clean test \
-        -project 'ScreenObject.xcodeproj' \
-        -scheme 'ScreenObject' \
-        -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.5'
+    command: .buildkite/commands/run-tests.sh 'iPhone 12'
     env: *common_env
     agents:
       queue: 'mac'
 
   - label: "🧪 Build and Test (iPad Pro (12.9-inch) (5th generation) Simulator)"
-    command: |
-      xcodebuild clean test \
-        -project 'ScreenObject.xcodeproj' \
-        -scheme 'ScreenObject' \
-        -destination 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (5th generation),OS=14.5'
+    command: .buildkite/commands/run-tests.sh 'iPad Pro (12.9-inch) (5th generation)'
     env: *common_env
     agents:
       queue: 'mac'
