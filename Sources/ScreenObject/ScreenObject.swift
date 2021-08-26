@@ -45,15 +45,24 @@ open class ScreenObject {
                 timeout: self.waitTimeout
             )
 
-            guard result else { throw WaitForScreenError.timedOut }
+            guard result == .completed else { throw WaitForScreenError.timedOut }
         }
         return self
     }
 
-    private func waitFor(element: XCUIElement, predicate: String, timeout: TimeInterval) -> Bool {
-        let elementPredicate = XCTNSPredicateExpectation(predicate: NSPredicate(format: predicate), object: element)
-        let result = XCTWaiter.wait(for: [elementPredicate], timeout: timeout)
-
-        return result == .completed
+    private func waitFor(
+        element: XCUIElement,
+        predicate: String,
+        timeout: TimeInterval
+    ) -> XCTWaiter.Result {
+        XCTWaiter.wait(
+            for: [
+                XCTNSPredicateExpectation(
+                    predicate: NSPredicate(format: predicate),
+                    object: element
+                )
+            ],
+            timeout: timeout
+        )
     }
 }
