@@ -50,7 +50,7 @@ open class ScreenObject {
         return self
     }
 
-    private func waitFor(element: XCUIElement, predicate: String, timeout: TimeInterval = 5) -> Bool {
+    private func waitFor(element: XCUIElement, predicate: String, timeout: TimeInterval) -> Bool {
         let elementPredicate = XCTNSPredicateExpectation(predicate: NSPredicate(format: predicate), object: element)
         let result = XCTWaiter.wait(for: [elementPredicate], timeout: timeout)
 
