@@ -35,15 +35,19 @@ open class ScreenObject {
     @discardableResult
     func waitForScreen() throws -> Self {
         XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
-            let result = waitFor(element: expectedElement, predicate: "isEnabled == true", timeout: 20)
+            let result = waitFor(
+                element: expectedElement,
+                predicate: "isEnabled == true",
+                timeout: self.waitTimeout
+            )
             XCTAssert(result, "Screen \(self) is not loaded.")
         }
         return self
     }
 
-    private func waitFor(element: XCUIElement, predicate: String, timeout: Int = 5) -> Bool {
+    private func waitFor(element: XCUIElement, predicate: String, timeout: TimeInterval = 5) -> Bool {
         let elementPredicate = XCTNSPredicateExpectation(predicate: NSPredicate(format: predicate), object: element)
-        let result = XCTWaiter.wait(for: [elementPredicate], timeout: TimeInterval(timeout))
+        let result = XCTWaiter.wait(for: [elementPredicate], timeout: timeout)
 
         return result == .completed
     }
