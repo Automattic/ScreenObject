@@ -15,9 +15,13 @@ class TestAppUITests: XCTestCase {
         XCTAssertTrue(screen.isLoaded)
     }
 
-    func testScreenInitFailsWhenScreenIsNotLoaded() throws {
-        XCTExpectFailure("Attempting to init a screen that is not loaded currently fails the tests")
-        _ = try MissingScreen(app: app)
+    func testScreenInitThrowsWhenScreenIsNotLoaded() throws {
+        do {
+            _ = try MissingScreen(app: app)
+            XCTFail("Expected `ScreenObject` `init` to throw, but it didn't")
+        } catch {
+            XCTAssertEqual(error as? ScreenObject.WaitForScreenError, .timedOut)
+        }
     }
 }
 

@@ -6,6 +6,10 @@ import XCTest
 // and those are obviously specific to each screen, hence should be added by each subclass.
 open class ScreenObject {
 
+    public enum WaitForScreenError: Equatable, Error {
+        case timedOut
+    }
+
     /// The `XCUIApplication` instance this screen is part of. This is the value passed at
     /// initialization time.
     public let app: XCUIApplication
@@ -34,13 +38,14 @@ open class ScreenObject {
 
     @discardableResult
     func waitForScreen() throws -> Self {
-        XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
+        try XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
             let result = waitFor(
                 element: expectedElement,
                 predicate: "isEnabled == true",
                 timeout: self.waitTimeout
             )
-            XCTAssert(result, "Screen \(self) is not loaded.")
+
+            guard result else { throw WaitForScreenError.timedOut }
         }
         return self
     }
