@@ -1,11 +1,15 @@
 env:
-  IMAGE_ID: xcode-12.5.1
+  GLOBAL: global value we don't try to override
+  GLOBAL_OVERRIDE: if you read this, then the global value takes precendence
 agents:
-  queue: 'mac'
+  queue: 'upload'
 
 steps:
-  - label: "🧪 Build and Test (iPhone 12 Simulator)"
-    command: .buildkite/commands/run-tests.sh 'iPhone 12'
-
-  - label: "🧪 Build and Test (iPad Pro (12.9-inch) (5th generation) Simulator)"
-    command: .buildkite/commands/run-tests.sh 'iPad Pro (12.9-inch) (5th generation)'
+  - label: "Test for env variables resolution"
+    command: |
+      echo "GLOBAL = $$GLOBAL"
+      echo "GLOBAL_OVERRIDE = $$GLOBAL_OVERRIDE"
+      echo "LOCAL = $$LOCAL"
+    env:
+      LOCAL: local value
+      GLOBAL_OVERRIDE: if you read this, then the global value was overridden by the local one
