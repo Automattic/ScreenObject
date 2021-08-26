@@ -3,14 +3,14 @@ import XCTest
 
 class TestAppUITests: XCTestCase {
 
+    let app = XCUIApplication()
+
     override func setUpWithError() throws {
+        app.launch()
         continueAfterFailure = false
     }
 
-    func testExample() throws {
-        let app = XCUIApplication()
-        app.launch()
-
+    func testIsLoadedReturnsTrueWhenScreenIsLoaded() throws {
         let screen = try HelloWorldScreen()
         XCTAssertTrue(screen.isLoaded)
     }
