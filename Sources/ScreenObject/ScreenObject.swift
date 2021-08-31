@@ -6,6 +6,10 @@ import XCTest
 // and those are obviously specific to each screen, hence should be added by each subclass.
 open class ScreenObject {
 
+    public enum WaitForScreenError: Equatable, Error {
+        case timedOut
+    }
+
     /// The `XCUIApplication` instance this screen is part of. This is the value passed at
     /// initialization time.
     public let app: XCUIApplication
@@ -34,17 +38,31 @@ open class ScreenObject {
 
     @discardableResult
     func waitForScreen() throws -> Self {
-        XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
-            let result = waitFor(element: expectedElement, predicate: "isEnabled == true", timeout: 20)
-            XCTAssert(result, "Screen \(self) is not loaded.")
+        try XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
+            let result = waitFor(
+                element: expectedElement,
+                predicate: "isEnabled == true",
+                timeout: self.waitTimeout
+            )
+
+            guard result == .completed else { throw WaitForScreenError.timedOut }
         }
         return self
     }
 
-    private func waitFor(element: XCUIElement, predicate: String, timeout: Int = 5) -> Bool {
-        let elementPredicate = XCTNSPredicateExpectation(predicate: NSPredicate(format: predicate), object: element)
-        let result = XCTWaiter.wait(for: [elementPredicate], timeout: TimeInterval(timeout))
-
-        return result == .completed
+    private func waitFor(
+        element: XCUIElement,
+        predicate: String,
+        timeout: TimeInterval
+    ) -> XCTWaiter.Result {
+        XCTWaiter.wait(
+            for: [
+                XCTNSPredicateExpectation(
+                    predicate: NSPredicate(format: predicate),
+                    object: element
+                )
+            ],
+            timeout: timeout
+        )
     }
 }
