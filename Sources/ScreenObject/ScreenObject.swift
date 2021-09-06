@@ -6,8 +6,16 @@ import XCTest
 // and those are obviously specific to each screen, hence should be added by each subclass.
 open class ScreenObject {
 
+    /// The default time used when waiting.
+    public static let defaultWaitTimeout: TimeInterval = 20
+
     public enum WaitForScreenError: Equatable, Error {
         case timedOut
+    }
+
+    /// The possible errors the initialization process can throw.
+    public enum InitError: Equatable, Error {
+        case emptyExpectedElementGettersArray
     }
 
     /// The `XCUIApplication` instance this screen is part of. This is the value passed at
@@ -31,9 +39,27 @@ open class ScreenObject {
     private let waitTimeout: TimeInterval
 
     public init(
+        expectedElementGetters: [(XCUIApplication) -> XCUIElement],
+        app: XCUIApplication = XCUIApplication(),
+        waitTimeout: TimeInterval = defaultWaitTimeout
+    ) throws {
+        guard expectedElementGetters.isEmpty == false else {
+            throw InitError.emptyExpectedElementGettersArray
+        }
+
+        self.app = app
+        self.expectedElementGetters = expectedElementGetters
+        self.waitTimeout = waitTimeout
+        try waitForScreen()
+    }
+
+    // Notice that this is a designated initializer, too, so that subclasses can delegate to either
+    // the single- and multiple-getter `init` version. If this had been a `convenience`, subclasses
+    // would not have been able to call it with `super`.
+    public init(
         expectedElementGetter: @escaping (XCUIApplication) -> XCUIElement,
         app: XCUIApplication = XCUIApplication(),
-        waitTimeout: TimeInterval = 20
+        waitTimeout: TimeInterval = defaultWaitTimeout
     ) throws {
         self.app = app
         self.expectedElementGetters = [expectedElementGetter]
