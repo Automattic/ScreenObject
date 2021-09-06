@@ -14,10 +14,15 @@ open class ScreenObject {
     /// initialization time.
     public let app: XCUIApplication
 
-    private let expectedElementGetter: (XCUIApplication) -> XCUIElement
+    private let expectedElementGetters: [(XCUIApplication) -> XCUIElement]
 
     /// The `XCUIElement` used to evaluate whether the screen is loaded at runtime.
-    public var expectedElement: XCUIElement { expectedElementGetter(app) }
+    public var expectedElement: XCUIElement {
+        guard let getter = expectedElementGetters.first else {
+            preconditionFailure("`expectedElementGetters` array was empty. This should never occur!")
+        }
+        return getter(app)
+    }
 
     /// Whether the screen is loaded at runtime. Evaluated inspecting the `expectedElement`
     /// property.
@@ -31,7 +36,7 @@ open class ScreenObject {
         waitTimeout: TimeInterval = 20
     ) throws {
         self.app = app
-        self.expectedElementGetter = expectedElementGetter
+        self.expectedElementGetters = [expectedElementGetter]
         self.waitTimeout = waitTimeout
         try waitForScreen()
     }
