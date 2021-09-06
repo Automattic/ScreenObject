@@ -44,13 +44,15 @@ open class ScreenObject {
     @discardableResult
     func waitForScreen() throws -> Self {
         try XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
-            let result = waitFor(
-                element: expectedElement,
-                predicate: "isEnabled == true",
-                timeout: self.waitTimeout
-            )
+            try expectedElementGetters.forEach { getter in
+                let result = waitFor(
+                    element: getter(app),
+                    predicate: "isEnabled == true",
+                    timeout: self.waitTimeout
+                )
 
-            guard result == .completed else { throw WaitForScreenError.timedOut }
+                guard result == .completed else { throw WaitForScreenError.timedOut }
+            }
         }
         return self
     }
