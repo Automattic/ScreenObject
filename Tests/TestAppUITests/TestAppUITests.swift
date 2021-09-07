@@ -11,7 +11,7 @@ class TestAppUITests: XCTestCase {
     }
 
     func testIsLoadedReturnsTrueWhenScreenIsLoaded() throws {
-        let screen = try HelloWorldScreen()
+        let screen = try HelloWorldScreen(app: app)
         XCTAssertTrue(screen.isLoaded)
     }
 
@@ -48,10 +48,10 @@ class TestAppUITests: XCTestCase {
     }
 }
 
-final class HelloWorldScreen: ScreenObject {
+class HelloWorldScreen: ScreenObject {
 
-    init(app: XCUIApplication = XCUIApplication()) throws {
-        try super.init(expectedElementGetter: { $0.staticTexts["Hello, world!"] })
+    init(app: XCUIApplication) throws {
+        try super.init(expectedElementGetter: { $0.staticTexts["Hello, world!"] }, app: app)
     }
 }
 
@@ -79,7 +79,7 @@ class MissingScreen: ScreenObject {
         try super.init(
             expectedElementGetter: { $0.staticTexts["this screen does not exist"] },
             app: app,
-            waitTimeout: 1
+            waitTimeout: 1 // We know the screen is not there, let's not wait for it for long
         )
     }
 }
