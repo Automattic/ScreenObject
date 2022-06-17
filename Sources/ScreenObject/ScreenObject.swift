@@ -7,7 +7,7 @@ import XCTest
 open class ScreenObject {
 
     /// The default time used when waiting.
-    public static let defaultWaitTimeout: TimeInterval = 20
+    public static let defaultWaitTimeout: TimeInterval = 10
 
     public enum WaitForScreenError: Equatable, Error {
         case timedOut
@@ -32,9 +32,21 @@ open class ScreenObject {
         return getter(app)
     }
 
-    /// Whether the screen is loaded at runtime. Evaluated inspecting the `expectedElement`
-    /// property.
-    public var isLoaded: Bool { expectedElement.exists }
+    @discardableResult
+    public func isLoaded() throws -> Bool {
+        try XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
+            try expectedElementGetters.forEach { getter in
+                let result = waitFor(
+                    element: getter(app),
+                    predicate: "isEnabled == true",
+                    timeout: self.waitTimeout
+                )
+
+                guard result == .completed else { throw WaitForScreenError.timedOut }
+            }
+        }
+        return true
+    }
 
     private let waitTimeout: TimeInterval
 
@@ -50,7 +62,7 @@ open class ScreenObject {
         self.app = app
         self.expectedElementGetters = expectedElementGetters
         self.waitTimeout = waitTimeout
-        try waitForScreen()
+        try waitForFirstScreenElement()
     }
 
     // Notice that this is a designated initializer, too, so that subclasses can delegate to either
@@ -64,7 +76,7 @@ open class ScreenObject {
         self.app = app
         self.expectedElementGetters = [expectedElementGetter]
         self.waitTimeout = waitTimeout
-        try waitForScreen()
+        try waitForFirstScreenElement()
     }
 
     @discardableResult
@@ -79,6 +91,21 @@ open class ScreenObject {
 
                 guard result == .completed else { throw WaitForScreenError.timedOut }
             }
+        }
+        return self
+    }
+
+    @discardableResult
+    func waitForFirstScreenElement() throws -> Self {
+        try XCTContext.runActivity(named: "Confirm the first element in screen \(self) is loaded") { (activity) in
+                let result = waitFor(
+                    element: expectedElement,
+                    predicate: "isEnabled == true",
+                    timeout: self.waitTimeout
+                )
+            
+                guard result == .completed else { throw WaitForScreenError.timedOut }
+
         }
         return self
     }

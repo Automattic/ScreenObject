@@ -31,7 +31,7 @@ class TestAppUITests: XCTestCase {
 
     func testScreenInitThrowsWhenScreenWithMultipleElementsIsNotLoaded() throws {
         do {
-            _ = try MissingMultipleElementsScreen(app: app)
+            _ = try MissingMultipleElementsScreen(app: app).isFullyLoaded()
             XCTFail("Expected `ScreenObject` `init` to throw, but it didn't")
         } catch {
             XCTAssertEqual(error as? ScreenObject.WaitForScreenError, .timedOut)
