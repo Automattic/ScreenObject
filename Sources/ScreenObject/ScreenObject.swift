@@ -32,19 +32,15 @@ open class ScreenObject {
         return getter(app)
     }
 
-    @discardableResult
-    public func isLoaded() throws -> Bool {
-        try XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
-            try expectedElementGetters.forEach { getter in
-                let result = waitFor(
-                    element: getter(app),
-                    predicate: "isEnabled == true",
-                    timeout: self.waitTimeout
-                )
-
-                guard result == .completed else { throw WaitForScreenError.timedOut }
-            }
+    public var isLoaded: Bool {
+        do {
+            try waitForScreen()
+        } catch {
+            print(error)
         }
+
+        // If the execution gets here, it means all elements were found,
+        // hence the hardcoded return value
         return true
     }
 

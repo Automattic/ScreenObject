@@ -31,7 +31,7 @@ class TestAppUITests: XCTestCase {
 
     func testScreenInitThrowsWhenScreenWithMultipleElementsIsNotLoaded() throws {
         do {
-            _ = try MissingMultipleElementsScreen(app: app).isFullyLoaded()
+            _ = try MissingMultipleElementsScreen(app: app)
             XCTFail("Expected `ScreenObject` `init` to throw, but it didn't")
         } catch {
             XCTAssertEqual(error as? ScreenObject.WaitForScreenError, .timedOut)
@@ -91,8 +91,8 @@ class MissingMultipleElementsScreen: ScreenObject {
     init(app: XCUIApplication) throws {
         try super.init(
             expectedElementGetters: [
-                { $0.staticTexts["Hello, world!"] },
-                { $0.staticTexts["this screen does not exist"] }
+                { $0.staticTexts["this screen does not exist"] },
+                { $0.staticTexts["Hello, world!"] }
             ],
             app: app,
             waitTimeout: 1 // We know the screen is not there, let's not wait for it for long
