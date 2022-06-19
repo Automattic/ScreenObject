@@ -37,6 +37,7 @@ open class ScreenObject {
             try waitForScreen()
         } catch {
             print(error)
+            return false
         }
 
         // If the execution gets here, it means all elements were found,

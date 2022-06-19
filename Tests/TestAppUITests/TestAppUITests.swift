@@ -20,6 +20,11 @@ class TestAppUITests: XCTestCase {
         XCTAssertTrue(screen.isLoaded)
     }
 
+    func testIsLoadedReturnsFalseWhenScreenWithMultipleElementsNotLoaded() throws {
+        let screen = try MissingSecondElementScreen(app: app)
+        XCTAssertFalse(screen.isLoaded)
+    }
+
     func testScreenInitThrowsWhenScreenIsNotLoaded() throws {
         do {
             _ = try MissingScreen(app: app)
@@ -31,7 +36,7 @@ class TestAppUITests: XCTestCase {
 
     func testScreenInitThrowsWhenScreenWithMultipleElementsIsNotLoaded() throws {
         do {
-            _ = try MissingMultipleElementsScreen(app: app)
+            _ = try MissingFirstElementScreen(app: app)
             XCTFail("Expected `ScreenObject` `init` to throw, but it didn't")
         } catch {
             XCTAssertEqual(error as? ScreenObject.WaitForScreenError, .timedOut)
@@ -84,9 +89,9 @@ class MissingScreen: ScreenObject {
     }
 }
 
-/// A screen that doesn't exist with multiple required elements. Use it to test the init failure
+/// A screen where the first element does not exist. Use it to test the init failure
 /// behavior.
-class MissingMultipleElementsScreen: ScreenObject {
+class MissingFirstElementScreen: ScreenObject {
 
     init(app: XCUIApplication) throws {
         try super.init(
@@ -94,8 +99,22 @@ class MissingMultipleElementsScreen: ScreenObject {
                 { $0.staticTexts["this screen does not exist"] },
                 { $0.staticTexts["Hello, world!"] }
             ],
-            app: app,
-            waitTimeout: 1 // We know the screen is not there, let's not wait for it for long
+            app: app
+        )
+    }
+}
+
+/// A screen where the first element exists, but the second does not. Use it to test the init passing,
+/// and `isLoaded` failure behavior.
+class MissingSecondElementScreen: ScreenObject {
+
+    init(app: XCUIApplication) throws {
+        try super.init(
+            expectedElementGetters: [
+                { $0.staticTexts["Hello, world!"] },
+                { $0.staticTexts["this screen does not exist"] }
+            ],
+            app: app
         )
     }
 }
