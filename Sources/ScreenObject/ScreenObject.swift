@@ -32,6 +32,7 @@ open class ScreenObject {
         return getter(app)
     }
 
+    /// Whether the whole screen is loaded at runtime (all elements in `expectedElementGetters`).
     public var isLoaded: Bool {
         do {
             try waitForScreen()
@@ -40,7 +41,7 @@ open class ScreenObject {
             return false
         }
 
-        // If the execution gets here, it means all elements were found,
+        // The execution gets here only if all elements were found,
         // hence the hardcoded return value
         return true
     }
