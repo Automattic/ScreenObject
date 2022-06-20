@@ -7,7 +7,7 @@ import XCTest
 open class ScreenObject {
 
     /// The default time used when waiting.
-    public static let defaultWaitTimeout: TimeInterval = 10
+    public static let defaultWaitTimeout: TimeInterval = 20
 
     public enum WaitForScreenError: Equatable, Error {
         case timedOut
