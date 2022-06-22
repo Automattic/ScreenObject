@@ -37,7 +37,6 @@ open class ScreenObject {
         do {
             try waitForScreen()
         } catch {
-            print(error)
             return false
         }
 
