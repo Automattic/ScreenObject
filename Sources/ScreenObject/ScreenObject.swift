@@ -24,6 +24,14 @@ open class ScreenObject {
 
     private let expectedElementGetters: [(XCUIApplication) -> XCUIElement]
 
+    /// The `XCUIElement` used to evaluate whether the screen is loaded at runtime.
+    public var expectedElement: XCUIElement {
+        guard let getter = expectedElementGetters.first else {
+            preconditionFailure("`expectedElementGetters` array was empty. This should never occur!")
+        }
+        return getter(app)
+    }
+
     /// Whether the whole screen is loaded at runtime (all elements in `expectedElementGetters`).
     public var isLoaded: Bool {
         do {
