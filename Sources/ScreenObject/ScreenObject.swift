@@ -80,19 +80,19 @@ open class ScreenObject {
     /// or, by default, for all elements to load (`firstElementOnly` is `false`).
     @discardableResult
     public func waitForScreen(firstElementOnly: Bool = false) throws -> Self {
-        var testedGetters: Array<(XCUIApplication) -> XCUIElement>,
+        var gettersToTest: Array<(XCUIApplication) -> XCUIElement>,
             activityDescription: String
 
         if firstElementOnly {
-            testedGetters = [expectedElementGetters.first!]
+            gettersToTest = [expectedElementGetters.first!]
             activityDescription = "Confirm first element from `expectedElementGetters` is loaded on screen \(self)"
         } else {
-            testedGetters = expectedElementGetters
+            gettersToTest = expectedElementGetters
             activityDescription = "Confirm whole screen \(self) is loaded"
         }
 
         try XCTContext.runActivity(named: activityDescription) { (activity) in
-            try testedGetters.forEach { getter in
+            try gettersToTest.forEach { getter in
                 let result = waitFor(
                     element: getter(app),
                     predicate: "isEnabled == true",
