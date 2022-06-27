@@ -80,14 +80,16 @@ open class ScreenObject {
     /// or, by default, for all elements to load (`firstElementOnly` is `false`).
     @discardableResult
     public func waitForScreen(firstElementOnly: Bool = false) throws -> Self {
-        var gettersToTest: Array<(XCUIApplication) -> XCUIElement>,
+        guard let firstGetter = expectedElementGetters.first else {
+            throw InitError.emptyExpectedElementGettersArray
+        }
+
+        let gettersToTest = firstElementOnly ? [firstGetter] : expectedElementGetters,
             activityDescription: String
 
         if firstElementOnly {
-            gettersToTest = [expectedElementGetters.first!]
             activityDescription = "Confirm first element from `expectedElementGetters` is loaded on screen \(self)"
         } else {
-            gettersToTest = expectedElementGetters
             activityDescription = "Confirm whole screen \(self) is loaded"
         }
 
