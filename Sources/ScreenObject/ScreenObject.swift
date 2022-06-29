@@ -32,9 +32,18 @@ open class ScreenObject {
         return getter(app)
     }
 
-    /// Whether the screen is loaded at runtime. Evaluated inspecting the `expectedElement`
-    /// property.
-    public var isLoaded: Bool { expectedElement.exists }
+    /// Whether the whole screen is loaded at runtime (all elements in `expectedElementGetters`).
+    public var isLoaded: Bool {
+        do {
+            try waitForScreen()
+        } catch {
+            return false
+        }
+
+        // The execution gets here only if all elements were found,
+        // hence the hardcoded return value
+        return true
+    }
 
     private let waitTimeout: TimeInterval
 
@@ -50,7 +59,7 @@ open class ScreenObject {
         self.app = app
         self.expectedElementGetters = expectedElementGetters
         self.waitTimeout = waitTimeout
-        try waitForScreen()
+        try waitForScreen(firstElementOnly: true)
     }
 
     // Notice that this is a designated initializer, too, so that subclasses can delegate to either
@@ -64,13 +73,28 @@ open class ScreenObject {
         self.app = app
         self.expectedElementGetters = [expectedElementGetter]
         self.waitTimeout = waitTimeout
-        try waitForScreen()
+        try waitForScreen(firstElementOnly: true)
     }
 
+    /// Waits for the first element from expectedElementGetters to load (if `firstElementOnly` is `true`)
+    /// or, by default, for all elements to load (`firstElementOnly` is `false`).
     @discardableResult
-    func waitForScreen() throws -> Self {
-        try XCTContext.runActivity(named: "Confirm screen \(self) is loaded") { (activity) in
-            try expectedElementGetters.forEach { getter in
+    public func waitForScreen(firstElementOnly: Bool = false) throws -> Self {
+        guard let firstGetter = expectedElementGetters.first else {
+            throw InitError.emptyExpectedElementGettersArray
+        }
+
+        let gettersToTest = firstElementOnly ? [firstGetter] : expectedElementGetters,
+            activityDescription: String
+
+        if firstElementOnly {
+            activityDescription = "Confirm first element from `expectedElementGetters` is loaded on screen \(self)"
+        } else {
+            activityDescription = "Confirm whole screen \(self) is loaded"
+        }
+
+        try XCTContext.runActivity(named: activityDescription) { (activity) in
+            try gettersToTest.forEach { getter in
                 let result = waitFor(
                     element: getter(app),
                     predicate: "isEnabled == true",
