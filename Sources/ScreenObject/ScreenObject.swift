@@ -97,7 +97,7 @@ open class ScreenObject {
             try gettersToTest.forEach { getter in
                 let result = waitFor(
                     element: getter(app),
-                    predicate: "isEnabled == true",
+                    predicate: "isEnabled == true && isHittable == true",
                     timeout: self.waitTimeout
                 )
 
