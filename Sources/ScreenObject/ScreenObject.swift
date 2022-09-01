@@ -10,7 +10,7 @@ open class ScreenObject {
     public static let defaultWaitTimeout: TimeInterval = 20
 
     public enum WaitForScreenError: Equatable, Error {
-        case timedOut = "Timed out"
+        case timedOut
     }
 
     /// The possible errors the initialization process can throw.
