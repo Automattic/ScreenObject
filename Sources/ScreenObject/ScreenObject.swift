@@ -97,11 +97,15 @@ open class ScreenObject {
             try gettersToTest.forEach { getter in
                 let result = waitFor(
                     element: getter(app),
-                    predicate: "isEnabled == true && isHittable == true",
+                    predicate: "isHittable == true",
                     timeout: self.waitTimeout
                 )
 
-                guard result == .completed else { throw WaitForScreenError.timedOut }
+                // guard result == .completed else { throw WaitForScreenError.timedOut }
+                guard result == .completed else { 
+                    console.Error("Element not hittable!")
+                    return false 
+                }
             }
         }
         return self
