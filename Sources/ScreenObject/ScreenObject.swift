@@ -10,7 +10,7 @@ open class ScreenObject {
     public static let defaultWaitTimeout: TimeInterval = 20
 
     public enum WaitForScreenError: Equatable, Error {
-        case timedOut
+        case timedOut = "Timed out"
     }
 
     /// The possible errors the initialization process can throw.
@@ -101,11 +101,7 @@ open class ScreenObject {
                     timeout: self.waitTimeout
                 )
 
-                // guard result == .completed else { throw WaitForScreenError.timedOut }
-                guard result == .completed else { 
-                    console.Error("Element not hittable!")
-                    return false 
-                }
+                guard result == .completed else { throw WaitForScreenError.timedOut }
             }
         }
         return self
