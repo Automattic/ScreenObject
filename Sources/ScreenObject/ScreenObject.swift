@@ -94,6 +94,7 @@ open class ScreenObject {
         }
 
         try XCTContext.runActivity(named: activityDescription) { (activity) in
+            print(app.debugDescription)
             try gettersToTest.forEach { getter in
                 let result = waitFor(
                     element: getter(app),
