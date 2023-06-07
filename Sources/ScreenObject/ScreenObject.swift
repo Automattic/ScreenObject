@@ -100,11 +100,10 @@ open class ScreenObject {
                 print("DEBUG_DESCRIPTION: \(getter(app).frame.debugDescription)")
                 print("EMPTY: \(getter(app).frame.isEmpty)")
                 print("NULL: \(getter(app).frame.isNull)")
-                print("SIZE: \(getter(app).frame.size)")
-                print("ORIGIN: \(getter(app).frame.origin)")
+                print("FRAME: \(getter(app).frame)")
                 let result = waitFor(
                     element: getter(app),
-                    predicate: "isHittable == true",
+                    predicate: "frame CONTAINS %@ AND isHittable == true",
                     timeout: self.waitTimeout
                 )
 
@@ -122,7 +121,7 @@ open class ScreenObject {
         XCTWaiter.wait(
             for: [
                 XCTNSPredicateExpectation(
-                    predicate: NSPredicate(format: predicate),
+                    predicate: NSPredicate(format: predicate, "(152.5, 1038.0, 515.0, 45.0)"),
                     object: element
                 )
             ],
