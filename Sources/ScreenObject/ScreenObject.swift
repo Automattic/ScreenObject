@@ -98,7 +98,7 @@ open class ScreenObject {
             try gettersToTest.forEach { getter in
                 let result = waitFor(
                     element: getter(app),
-                    predicate: "exists == true AND isHittable == true",
+                    predicate: "frame.isInfinite == false AND isHittable == true",
                     timeout: self.waitTimeout
                 )
 
