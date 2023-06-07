@@ -96,9 +96,15 @@ open class ScreenObject {
         try XCTContext.runActivity(named: activityDescription) { (activity) in
             print(app.debugDescription)
             try gettersToTest.forEach { getter in
+                print("INFINITE: \(getter(app).frame.isInfinite)")
+                print("DEBUG_DESCRIPTION: \(getter(app).frame.debugDescription)")
+                print("EMPTY: \(getter(app).frame.isEmpty)")
+                print("NULL: \(getter(app).frame.isNull)")
+                print("SIZE: \(getter(app).frame.size)")
+                print("ORIGIN: \(getter(app).frame.origin)")
                 let result = waitFor(
                     element: getter(app),
-                    predicate: "frame.isInfinite == false AND isHittable == true",
+                    predicate: "isHittable == true",
                     timeout: self.waitTimeout
                 )
 
