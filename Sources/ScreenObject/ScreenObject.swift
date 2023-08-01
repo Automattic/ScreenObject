@@ -79,7 +79,7 @@ open class ScreenObject {
     /// Waits for the first element from expectedElementGetters to load (if `firstElementOnly` is `true`)
     /// or, by default, for all elements to load (`firstElementOnly` is `false`).
     @discardableResult
-    public func waitForScreen(firstElementOnly: Bool = false) throws -> Self {
+    public func waitForScreen(firstElementOnly: Bool = false, maxRetries: Int = 3) throws -> Self {
         guard let firstGetter = expectedElementGetters.first else {
             throw InitError.emptyExpectedElementGettersArray
         }
@@ -93,17 +93,38 @@ open class ScreenObject {
             activityDescription = "Confirm whole screen \(self) is loaded"
         }
 
-        try XCTContext.runActivity(named: activityDescription) { (activity) in
-            try gettersToTest.forEach { getter in
-                let result = waitFor(
-                    element: getter(app),
-                    predicate: "isHittable == true",
-                    timeout: self.waitTimeout
-                )
+        let retryExpectation = XCTestExpectation(description: "Retry expectation")
+        var currentRetryCount = 0
 
-                guard result == .completed else { throw WaitForScreenError.timedOut }
+        while currentRetryCount < maxRetries {
+            currentRetryCount += 1
+
+            do {
+                try XCTContext.runActivity(named: activityDescription) { (activity) in
+                    try gettersToTest.forEach { getter in
+                        let result = waitFor(
+                            element: getter(app),
+                            predicate: "isHittable == true",
+                            timeout: self.waitTimeout
+                        )
+
+                        guard result == .completed else { throw WaitForScreenError.timedOut }
+                    }
+                }
+                break
+            } catch {
+                if currentRetryCount < maxRetries {
+                    retryExpectation.fulfill()
+                    // Wait 1 second before retrying
+                    sleep(1)
+                    continue
+                } else {
+                    throw WaitForScreenError.timedOut
+                }
             }
         }
+
+        XCTWaiter().wait(for: [retryExpectation], timeout: defaultWaitTimeout)
         return self
     }
 
