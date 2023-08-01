@@ -93,9 +93,7 @@ open class ScreenObject {
             activityDescription = "Confirm whole screen \(self) is loaded"
         }
 
-        let retryExpectation = XCTestExpectation(description: "Retry expectation")
         var currentRetryCount = 0
-
         while currentRetryCount < maxRetries {
             currentRetryCount += 1
 
@@ -113,8 +111,8 @@ open class ScreenObject {
                 }
                 break
             } catch {
+                print("element not hittable, try again")
                 if currentRetryCount < maxRetries {
-                    retryExpectation.fulfill()
                     // Wait 1 second before retrying
                     sleep(1)
                     continue
@@ -124,7 +122,6 @@ open class ScreenObject {
             }
         }
 
-        XCTWaiter().wait(for: [retryExpectation], timeout: Self.defaultWaitTimeout)
         return self
     }
 
