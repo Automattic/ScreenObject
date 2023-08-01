@@ -124,7 +124,7 @@ open class ScreenObject {
             }
         }
 
-        XCTWaiter().wait(for: [retryExpectation], timeout: TimeInterval)
+        XCTWaiter().wait(for: [retryExpectation], timeout: Self.defaultWaitTimeout)
         return self
     }
 
