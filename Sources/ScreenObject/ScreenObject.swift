@@ -96,7 +96,6 @@ open class ScreenObject {
         var currentRetryCount = 0
         while currentRetryCount < maxRetries {
             currentRetryCount += 1
-
             do {
                 try XCTContext.runActivity(named: activityDescription) { (activity) in
                     try gettersToTest.forEach { getter in
@@ -111,7 +110,6 @@ open class ScreenObject {
                 }
                 break
             } catch {
-                print("element not hittable, try again")
                 if currentRetryCount < maxRetries {
                     // Wait 1 second before retrying
                     sleep(1)
@@ -121,7 +119,6 @@ open class ScreenObject {
                 }
             }
         }
-
         return self
     }
 
