@@ -9,6 +9,9 @@ open class ScreenObject {
     /// The default time used when waiting.
     public static let defaultWaitTimeout: TimeInterval = 20
 
+    /// Waiting time before retry
+    public static let retryWaitTime: UInt32 = 1
+
     public enum WaitForScreenError: Equatable, Error {
         case timedOut
     }
@@ -109,13 +112,13 @@ open class ScreenObject {
                     }
                 }
                 break
-            } catch {
+            } catch let error {
                 if currentRetryCount < maxRetries {
-                    // Wait 1 second before retrying
-                    sleep(1)
+                    // Wait before attempting to retry again
+                    sleep(Self.retryWaitTime)
                     continue
                 } else {
-                    throw WaitForScreenError.timedOut
+                    throw error
                 }
             }
         }
