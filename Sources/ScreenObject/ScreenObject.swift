@@ -9,6 +9,9 @@ open class ScreenObject {
     /// The default time used when waiting.
     public static let defaultWaitTimeout: TimeInterval = 20
 
+    /// Waiting time before retry
+    public static let retryWaitTime: UInt32 = 1
+
     public enum WaitForScreenError: Equatable, Error {
         case timedOut
     }
@@ -79,7 +82,7 @@ open class ScreenObject {
     /// Waits for the first element from expectedElementGetters to load (if `firstElementOnly` is `true`)
     /// or, by default, for all elements to load (`firstElementOnly` is `false`).
     @discardableResult
-    public func waitForScreen(firstElementOnly: Bool = false) throws -> Self {
+    public func waitForScreen(firstElementOnly: Bool = false, maxRetries: Int = 3) throws -> Self {
         guard let firstGetter = expectedElementGetters.first else {
             throw InitError.emptyExpectedElementGettersArray
         }
@@ -93,15 +96,30 @@ open class ScreenObject {
             activityDescription = "Confirm whole screen \(self) is loaded"
         }
 
-        try XCTContext.runActivity(named: activityDescription) { (activity) in
-            try gettersToTest.forEach { getter in
-                let result = waitFor(
-                    element: getter(app),
-                    predicate: "isHittable == true",
-                    timeout: self.waitTimeout
-                )
+        var currentRetryCount = 0
+        while currentRetryCount < maxRetries {
+            currentRetryCount += 1
+            do {
+                try XCTContext.runActivity(named: activityDescription) { (activity) in
+                    try gettersToTest.forEach { getter in
+                        let result = waitFor(
+                            element: getter(app),
+                            predicate: "isHittable == true",
+                            timeout: self.waitTimeout
+                        )
 
-                guard result == .completed else { throw WaitForScreenError.timedOut }
+                        guard result == .completed else { throw WaitForScreenError.timedOut }
+                    }
+                }
+                break
+            } catch let error {
+                if currentRetryCount < maxRetries {
+                    // Wait before attempting to retry again
+                    sleep(Self.retryWaitTime)
+                    continue
+                } else {
+                    throw error
+                }
             }
         }
         return self
