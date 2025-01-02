@@ -1,5 +1,5 @@
 env:
-  IMAGE_ID: xcode-12.5.1
+  IMAGE_ID: xcode-16.1
 agents:
   queue: 'mac'
 
