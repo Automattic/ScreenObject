@@ -4,8 +4,8 @@ agents:
   queue: 'mac'
 
 steps:
-  - label: "🧪 Build and Test (iPhone 12 Simulator)"
-    command: .buildkite/commands/run-tests.sh 'iPhone 12'
+  - label: "🧪 Build and Test (iPhone 16 Simulator)"
+    command: .buildkite/commands/run-tests.sh 'iPhone 16'
 
-  - label: "🧪 Build and Test (iPad Pro (12.9-inch) (5th generation) Simulator)"
-    command: .buildkite/commands/run-tests.sh 'iPad Pro (12.9-inch) (5th generation)'
+  - label: "🧪 Build and Test (iPad Pro 13-inch (M4) Simulator)"
+    command: .buildkite/commands/run-tests.sh 'iPad Pro 13-inch (M4)'
