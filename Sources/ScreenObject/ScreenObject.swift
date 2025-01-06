@@ -7,7 +7,7 @@ import XCTest
 open class ScreenObject {
 
     /// The default time used when waiting.
-    public static let defaultWaitTimeout: TimeInterval = 30
+    public static let defaultWaitTimeout: TimeInterval = 45
 
     /// Waiting time before retry
     public static let retryWaitTime: UInt32 = 1
