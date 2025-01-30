@@ -14,8 +14,9 @@
 #   version, that seems like a reasonable tradeoff to make it easier to move to
 #   newer versions as they are released.
 SIMULATOR_NAME=$1
+SIMULATOR_IOS_VERSION='18.1'
 
 xcodebuild clean test \
   -project 'ScreenObject.xcodeproj' \
   -scheme 'ScreenObject' \
-  -destination "platform=iOS Simulator,name=$SIMULATOR_NAME,OS=18.1"
+  -destination "platform=iOS Simulator,name=$SIMULATOR_NAME,OS=$SIMULATOR_IOS_VERSION"
