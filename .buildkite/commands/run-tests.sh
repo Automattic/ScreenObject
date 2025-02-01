@@ -13,9 +13,9 @@
 #   iOS version set. As long as we only need to test against the latest iOS
 #   version, that seems like a reasonable tradeoff to make it easier to move to
 #   newer versions as they are released.
-SIMULATOR_NAME=$1
+SIMULATOR_NAME=$2
 SIMULATOR_IOS_VERSION='18.2'
-SCHEME='TestApp'
+SCHEME=$1
 
 xcodebuild clean test \
   -project 'Tests/Tests.xcodeproj' \
