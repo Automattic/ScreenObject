@@ -15,8 +15,9 @@
 #   newer versions as they are released.
 SIMULATOR_NAME=$1
 SIMULATOR_IOS_VERSION='18.2'
+SCHEME='TestApp'
 
 xcodebuild clean test \
-  -project 'ScreenObject.xcodeproj' \
-  -scheme 'ScreenObject' \
+  -project 'Tests/Tests.xcodeproj' \
+  -scheme "$SCHEME" \
   -destination "platform=iOS Simulator,name=$SIMULATOR_NAME,OS=$SIMULATOR_IOS_VERSION"
