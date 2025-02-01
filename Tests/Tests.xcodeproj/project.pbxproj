@@ -19,6 +19,13 @@
 			remoteGlobalIDString = 3F5F1AE72D4DA8EC004C1AA6;
 			remoteInfo = TestApp;
 		};
+		3F5F1B572D4DAEB8004C1AA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F5F1ADD2D4DA7AC004C1AA6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F5F1AE72D4DA8EC004C1AA6;
+			remoteInfo = TestApp;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
