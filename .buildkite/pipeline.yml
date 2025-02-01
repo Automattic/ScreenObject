@@ -13,8 +13,9 @@ steps:
   - label: "🧪 Build and UI Test XCUITestHelpers (iPhone 16 Simulator)"
     command: .buildkite/commands/run-tests.sh XCUITestHelpersUITests 'iPhone 16'
 
-  - label: "🧪 Build and UI Test XCUITestHelpers (iPad Pro 13-inch (M4) Simulator)"
-    command: .buildkite/commands/run-tests.sh XCUITestHelpersUITests 'iPad Pro 13-inch (M4)'
+  # Notice 11-inch not 13-inch because the tests do not expect as big a screen as the 13-inch
+  - label: "🧪 Build and UI Test XCUITestHelpers (iPad Pro 11-inch (M4) Simulator)"
+    command: .buildkite/commands/run-tests.sh XCUITestHelpersUITests 'iPad Pro 11-inch (M4)'
 
   - label: "🧪 Build and Unit Test XCUITestHelpers (iPhone 16 Simulator)"
     command: .buildkite/commands/run-tests.sh XCUITestHelpersTests 'iPhone 16'
