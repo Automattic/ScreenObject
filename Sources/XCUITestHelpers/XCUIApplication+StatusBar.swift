@@ -1,6 +1,6 @@
 import XCTest
 
-extension XCUIApplication {
+public extension XCUIApplication {
 
     /// Helper function to hit the status bar that falls back to hitting the system's status bar
     /// if the app has none.

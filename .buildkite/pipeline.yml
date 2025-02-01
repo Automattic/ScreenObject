@@ -4,11 +4,17 @@ agents:
   queue: 'mac'
 
 steps:
-  - label: "🧪 Build and Test ScreenObject (iPhone 16 Simulator)"
+  - label: "🧪 Build and UI Test ScreenObject (iPhone 16 Simulator)"
     command: .buildkite/commands/run-tests.sh TestApp 'iPhone 16'
 
-  - label: "🧪 Build and Test ScreenObject (iPad Pro 13-inch (M4) Simulator)"
+  - label: "🧪 Build and UI Test ScreenObject (iPad Pro 13-inch (M4) Simulator)"
     command: .buildkite/commands/run-tests.sh TestApp 'iPad Pro 13-inch (M4)'
+
+  - label: "🧪 Build and UI Test XCUITestHelpers (iPhone 16 Simulator)"
+    command: .buildkite/commands/run-tests.sh XCUITestHelpersUITests 'iPhone 16'
+
+  - label: "🧪 Build and UI Test XCUITestHelpers (iPad Pro 13-inch (M4) Simulator)"
+    command: .buildkite/commands/run-tests.sh XCUITestHelpersUITests 'iPad Pro 13-inch (M4)'
 
   - label: "🧪 Build and Unit Test XCUITestHelpers (iPhone 16 Simulator)"
     command: .buildkite/commands/run-tests.sh XCUITestHelpersTests 'iPhone 16'

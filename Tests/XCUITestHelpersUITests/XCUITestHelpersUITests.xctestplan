@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "89369AE9-11C4-45A6-B3D8-0F53C06E49F3",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testRepetitionMode" : "retryOnFailure"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Tests.xcodeproj",
+        "identifier" : "3F5F1B502D4DAEB8004C1AA6",
+        "name" : "XCUITestHelpersUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
