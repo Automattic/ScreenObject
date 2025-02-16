@@ -56,7 +56,7 @@ class TestAppUITests: XCTestCase {
 class HelloWorldScreen: ScreenObject {
 
     init(app: XCUIApplication) throws {
-        try super.init(expectedElementGetter: { $0.staticTexts["Hello, world!"] }, app: app)
+        try super.init(expectedElementGetter: { $0.staticTexts["button has not been tapped"] }, app: app)
     }
 }
 
@@ -69,8 +69,8 @@ class MultipleElementsScreen: ScreenObject {
     init(app: XCUIApplication) throws {
         try super.init(
             expectedElementGetters: [
-                { $0.staticTexts["Hello, world!"] },
-                { $0.staticTexts["Subtitle"] }
+                { $0.staticTexts["button has not been tapped"] },
+                { $0.staticTexts["x1-y1"] }
             ],
             app: app
         )
@@ -97,7 +97,7 @@ class MissingFirstElementScreen: ScreenObject {
         try super.init(
             expectedElementGetters: [
                 { $0.staticTexts["this screen does not exist"] },
-                { $0.staticTexts["Hello, world!"] }
+                { $0.staticTexts["x1-y1"] }
             ],
             app: app
         )
@@ -111,7 +111,7 @@ class MissingSecondElementScreen: ScreenObject {
     init(app: XCUIApplication) throws {
         try super.init(
             expectedElementGetters: [
-                { $0.staticTexts["Hello, world!"] },
+                { $0.staticTexts["x1-y1"] },
                 { $0.staticTexts["this screen does not exist"] }
             ],
             app: app

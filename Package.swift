@@ -7,10 +7,12 @@ let package = Package(
     platforms: [ .iOS(.v13) ],
     products: [
         .library(name: "ScreenObject", targets: ["ScreenObject"]),
+        .library(name: "XCUITestHelpers", targets: ["XCUITestHelpers"]),
     ],
     dependencies: [],
     targets: [
         .target(name: "ScreenObject", exclude: ["Info.plist"]),
+        .target(name: "XCUITestHelpers", exclude: ["Info.plist"]),
     ],
     swiftLanguageVersions: [.v5]
 )

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "8DDAFD63-E38A-4B44-A449-F8787BCD5984",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testRepetitionMode" : "retryOnFailure"
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Tests.xcodeproj",
+        "identifier" : "3F5F1B142D4DAA47004C1AA6",
+        "name" : "ScreenObjectUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
