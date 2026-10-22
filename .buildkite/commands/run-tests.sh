@@ -14,7 +14,7 @@
 #   version, that seems like a reasonable tradeoff to make it easier to move to
 #   newer versions as they are released.
 SIMULATOR_NAME=$2
-SIMULATOR_IOS_VERSION='18.2'
+SIMULATOR_IOS_VERSION='27.1'
 SCHEME=$1
 
 xcodebuild clean test \
